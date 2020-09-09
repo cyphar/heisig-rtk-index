@@ -32,6 +32,13 @@ they are a primitive and the lesson that the frame appears in in the book).
 [base-index]: https://github.com/sdcr/heisig-kanjis
 [releases]: https://github.com/cyphar/heisig-rtk-index/releases
 
+### Scripts ###
+
+`index_primitives.py` creates a new directory (specified by `-o`) which
+contains a `PRIMITIVE_INDEX.csv` file as well as nicely-named copies of all of
+the primitive SVGs. You must specify the source directory as the `primitives`
+directory which contains all of the `NN-strokes` subdirectories.
+
 ### Mistakes ###
 
 While collating all of this information, I found the following mistakes in my

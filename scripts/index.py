@@ -25,7 +25,7 @@ import collections
 from xml.etree import ElementTree
 
 LAST_KANJI = 2200 # Only this many kanji in RtK 1.
-FIELDS = ["heisig_number", "keyword", "character", "stroke_count", "is_primitive", "tags", "mnemonic"]
+FIELDS = ["heisig_number", "character", "keyword", "mnemonic", "stroke_count", "is_primitive", "tags"]
 
 KANJIDIC2_URL = "http://www.edrdg.org/kanjidic/kanjidic2.xml.gz"
 
@@ -150,11 +150,13 @@ def main(args):
 				current_lesson = LESSON_BOUNDARIES[real_heisig - 1]
 
 		# Add tags to the note.
+		# XXX: Tags are actually fairly annoying in the Anki interface, so
+		#      disable these for now.
 		tags = note.get("tags", [])
-		if not real_heisig:
-			tags.append("primitive")
-		if LESSON_BOUNDARIES:
-			tags.append("lesson-%s" % (current_lesson,))
+		#if not real_heisig:
+		#	tags.append("primitive")
+		#if LESSON_BOUNDARIES:
+		#	tags.append("lesson-%s" % (current_lesson,))
 		note["tags"] = " ".join(tags)
 
 		# Output the note.

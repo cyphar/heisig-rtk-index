@@ -94,7 +94,7 @@ kanji,id_5th_ed,id_6th_ed,keyword_5th_ed,keyword_6th_ed,components,on_reading,ku
 副,89,93,vice-,vice-,wealth; one; ceiling; mouth; rice field; brains; sword; sabre; saber,フク,
 別,90,94,separate,separate,mouth; bound up; sword; sabre; saber,ベツ,わか.れる; わ.ける
 丁,91,95,street,street,nail; spike,チョウ; テイ; チン; トウ; チ,ひのと
-町,92,96,village,village,rice field; brains; street; nail; spike,チョウ,まち
+町,92,96,village,town,rice field; brains; street; nail; spike,チョウ,まち
 可,93,97,can,can,mouth; street; street; nail; spike,カ; コク,-べ.き
 頂,94,98,place on the head,place on the head,street; nail; spike; head; page; one; ceiling; drop; shellfish; clam; oyster; eye; animal legs; eight,チョウ,いただ.く; いただき
 子,95,99,child,child,,シ; ス; ツ,こ; -こ; ね
@@ -219,7 +219,7 @@ kanji,id_5th_ed,id_6th_ed,keyword_5th_ed,keyword_6th_ed,components,on_reading,ku
 椅,2480,218,chair,chair,tree; wood; strange; large; St. Bernard; street; nail; spike; mouth,イ,
 枯,206,219,wither,wither,tree; wood; old; tombstone; gravestone; church; ten; needle; mouth,コ,か.れる; か.らす
 朴,207,220,crude,crude,tree; wood; magic wand; augury,ボク,ほう; ほお; えのき
-村,208,221,town,town,tree; wood; measure; glue,ソン,むら
+村,208,221,village,town,tree; wood; measure; glue,ソン,むら
 相,209,222,inter-,inter-,tree; wood; eye,ソウ; ショウ,あい-
 机,210,223,desk,desk,tree; wood; wind,キ,つくえ
 本,211,224,book,book,tree; wood; one,ホン,もと
@@ -228,8 +228,8 @@ kanji,id_5th_ed,id_6th_ed,keyword_5th_ed,keyword_6th_ed,components,on_reading,ku
 案,214,227,plan,plan,relax; house; woman; tree; wood,アン,つくえ
 燥,215,228,parch,parch,fire; furniture; wooden goods; mouth; tree; wood,ソウ,はしゃ.ぐ
 未,216,229,not yet,not yet,tree; wood; one,ミ; ビ,いま.だ; ま.だ; ひつじ
-末,217,230,extremity,extremity,tree; wood; one,マツ; バツ,すえ
-昧,2445,231,obscure,obscure,sun; not yet; one; tree; wood,マイ; バイ,くら.い; むさぼ.る
+昧,2445,230,obscure,obscure,sun; not yet; one; tree; wood,マイ; バイ,くら.い; むさぼ.る
+末,217,231,extremity,extremity,tree; wood; one,マツ; バツ,すえ
 沫,218,232,splash,splash,water; water droplets; water pistol; extremity; one; tree; wood,マツ; バツ,あわ; しぶき; つばき
 味,219,233,flavor,flavor,mouth; not yet; one; tree; wood,ミ,あじ; あじ.わう
 妹,220,234,younger sister,younger sister,woman; not yet; one; tree; wood,マイ,いもうと

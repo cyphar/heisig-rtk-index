@@ -226,6 +226,12 @@ are corrected in any future 7th edition he chooses to release):
 
  * Index III incorrectly lists the radical for 輸 as 言 (rather than 車).
 
+ * For frame 308 ("metaphor"), Heisig uses the Hanzi character "喻" rather than
+   the correct Jōyō Kanji "喩". I believe this is done because you learn all of
+   the needed primitives for 喻 by this point (while "喩" has components which
+   don't appear to exist in other Kanji). However it's still an innacuracy in
+   the book's teaching.
+
 ### What about RtK-3? ###
 
 At some point I will take a look at creating an index for the third volume of

@@ -84,7 +84,7 @@ def generate_notes(args):
 			PRIMITIVES[next_frame].append({
 				"heisig_number": row["fake_heisig"],
 				"keyword": row["keyword"],
-				"character": '<img src="%s"/>' % (row["path"],),
+				"character": '<img class="rtk-primitive" src="%s"/>' % (row["path"],),
 				"stroke_count": int(row["stroke_count"]),
 				"is_primitive": "x",
 			})

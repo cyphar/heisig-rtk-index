@@ -56,6 +56,13 @@ are corrected in any future 7th edition he chooses to release):
    primitive on page 385 (one of the primitive forms of "row") even though it's
    listed in Index IV as a primitive on that page.
 
+ * Index II's entry for "butcher" is incorrect (it should be the 6-stroke
+   primitive "flesh + sabre" but instead it includes the "meeting" primitive
+   making it 9 strokes). Reading the text description of 輸 makes this pretty
+   clear.
+
+ * Index III incorrectly lists the radical for 輸 as 言 (rather than 車).
+
 ### What about RtK-3? ###
 
 At some point I will take a look at creating an index for the third volume of

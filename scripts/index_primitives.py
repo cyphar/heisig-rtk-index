@@ -61,7 +61,7 @@ def main(args):
 	# Pre-load any old lookup information.
 	frames_wtr = None
 	if args.input:
-		with open(args.input) as f:
+		with open(args.input, "r", newline="") as f:
 			# FORMAT: old_path,new_keyword,next_frame
 			frames_rdr = csv.DictReader(f)
 			for row in frames_rdr:
@@ -69,7 +69,9 @@ def main(args):
 				next_frame[path] = int(row["next_frame"])
 				if row["new_keyword"]:
 					new_keyword[path] = row["new_keyword"]
-		frames_wtr = csv.DictWriter(open(args.input, "w"), fieldnames=IN_FIELDS)
+
+		f = open(args.input, "w", newline="")
+		frames_wtr = csv.DictWriter(f, fieldnames=IN_FIELDS, lineterminator="\n")
 		frames_wtr.writeheader()
 
 	# Compute the frame table -- ask in *page* order!
@@ -99,8 +101,8 @@ def main(args):
 	# Generate the CSV.
 	os.mkdir(args.output)
 	csvout = os.path.join(args.output, "PRIMITIVE_INDEX.csv")
-	with open(csvout, "w") as f:
-		index_wtr = csv.DictWriter(f, fieldnames=OUT_FIELDS)
+	with open(csvout, "w", newline="") as f:
+		index_wtr = csv.DictWriter(f, fieldnames=OUT_FIELDS, lineterminator="\n")
 		index_wtr.writeheader()
 
 		for path in paths:

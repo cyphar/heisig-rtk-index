@@ -76,7 +76,7 @@ def stroke_count(kanji):
 def generate_notes(args):
 	# Pre-calculate which frame boundaries have to have primitives inserted.
 	PRIMITIVES = collections.defaultdict(list) # next_frame -> [primitive]
-	with open(args.primitives) as f:
+	with open(args.primitives, "r", newline="") as f:
 		# FORMAT: path,keyword,stroke_count,fake_heisig,next_frame,old_path,page
 		rdr = csv.DictReader(f)
 		for row in rdr:
@@ -90,7 +90,7 @@ def generate_notes(args):
 			})
 
 	# Finally, go through the Kanji index and generate our final index notes.
-	with open(args.kanji) as f:
+	with open(args.kanji, "r", newline="") as f:
 		# FORMAT: kanji,id_5th_ed,id_6th_ed,keyword_5th_ed,keyword_6th_ed,...
 		rdr = csv.DictReader(f)
 
@@ -124,7 +124,7 @@ def generate_notes(args):
 
 def main(args):
 	if args.output:
-		outf = open(args.output, "w")
+		outf = open(args.output, "w", newline="")
 	else:
 		outf = sys.stdout
 
@@ -133,7 +133,7 @@ def main(args):
 	# custom lessons but the idea was to just mirror the Heisig lessons.
 	LESSON_BOUNDARIES = {} # {last_frame} -> lesson
 	if args.lessons:
-		with open(args.lessons) as f:
+		with open(args.lessons, "r", newline="") as f:
 			# FORMAT: lesson_id,last_frame
 			rdr = csv.DictReader(f)
 			for row in rdr:
@@ -142,7 +142,7 @@ def main(args):
 	# Start with the lowest-frame lesson.
 	current_lesson = LESSON_BOUNDARIES[min(LESSON_BOUNDARIES)] - 1
 
-	wtr = csv.DictWriter(outf, fieldnames=FIELDS)
+	wtr = csv.DictWriter(outf, fieldnames=FIELDS, lineterminator="\n")
 	wtr.writeheader()
 	for real_heisig, note in generate_notes(args):
 		# Update lesson index.

@@ -16,6 +16,7 @@
 
 set -Eeuxo pipefail
 
+MINIMAL="${MINIMAL:-}"
 WORKDIR="$(mktemp --tmpdir -d "heisig-rtk-index.XXXXXX")"
 
 FINALDIR="$WORKDIR/heisig-rtk-index"
@@ -29,10 +30,17 @@ rm -f "kanjidic2.xml.gz"
 	--input primitives/INPUT.csv \
 	--output "$WORKDIR/primitive_index" \
 	primitives/
+
+extra_args=()
+if [ -n "$MINIMAL" ]
+then
+	extra_args=("--filter" "MINIMAL_SET.txt")
+fi
+
 ./scripts/index.py \
+	"${extra_args[@]}" \
 	--kanji kanji/KANJI_INDEX.csv \
 	--primitives "$WORKDIR/primitive_index/PRIMITIVE_INDEX.csv" \
-	--lessons LESSONS.csv \
 	--output "$FINALDIR/INDEX.csv"
 
 # Move the media to $FINALDIR.

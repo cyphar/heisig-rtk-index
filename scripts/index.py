@@ -89,6 +89,11 @@ def generate_notes(args):
 				"is_primitive": "x",
 			})
 
+	wanted_kanji = set(range(1, LAST_KANJI + 1))
+	if args.filter:
+		with open(args.filter, "r") as f:
+			wanted_kanji = set(int(line) for line in f)
+
 	# Finally, go through the Kanji index and generate our final index notes.
 	with open(args.kanji, "r", newline="") as f:
 		# FORMAT: kanji,id_5th_ed,id_6th_ed,keyword_5th_ed,keyword_6th_ed,...
@@ -100,16 +105,18 @@ def generate_notes(args):
 		# Only do Kanji which are part of RtK 1.
 		rows = (row for row in rows if int(row["id_6th_ed"]))
 
+		last_heisig_number = 0
 		for row in rows:
 			heisig_number = int(row["id_6th_ed"])
 
-			# We're only doing RtK 1 here.
-			if heisig_number > LAST_KANJI:
-				break
+			# Only generate output for wanted kanji.
+			if heisig_number not in wanted_kanji:
+				continue
 
 			# Is there a primitive that needs to be inserted before this kanji?
-			for prim in PRIMITIVES[heisig_number]:
-				yield (None, prim)
+			for skipped in range(last_heisig_number + 1, heisig_number + 1):
+				for prim in PRIMITIVES[skipped]:
+					yield (None, prim)
 
 			# Okay, now yield the note for this kanji.
 			note = {
@@ -121,6 +128,9 @@ def generate_notes(args):
 			}
 			yield (heisig_number, note)
 
+			# Update last heisig number.
+			last_heisig_number = heisig_number
+
 
 def main(args):
 	if args.output:
@@ -128,35 +138,13 @@ def main(args):
 	else:
 		outf = sys.stdout
 
-	# Get the lesson map to generate lesson tags. If there isn't a lesson file
-	# then we don't generate lesson tags. In theory you could use this for
-	# custom lessons but the idea was to just mirror the Heisig lessons.
-	LESSON_BOUNDARIES = {} # {last_frame} -> lesson
-	if args.lessons:
-		with open(args.lessons, "r", newline="") as f:
-			# FORMAT: lesson_id,last_frame
-			rdr = csv.DictReader(f)
-			for row in rdr:
-				last_frame = int(row["last_frame"])
-				LESSON_BOUNDARIES[last_frame] = int(row["lesson_id"]) + 1
-	# Start with the lowest-frame lesson.
-	current_lesson = LESSON_BOUNDARIES[min(LESSON_BOUNDARIES)] - 1
-
 	wtr = csv.DictWriter(outf, fieldnames=FIELDS, lineterminator="\n")
 	wtr.writeheader()
 	for real_heisig, note in generate_notes(args):
-		# Update lesson index.
-		if real_heisig and (real_heisig - 1) in LESSON_BOUNDARIES:
-				current_lesson = LESSON_BOUNDARIES[real_heisig - 1]
-
 		# Add tags to the note.
 		# XXX: Tags are actually fairly annoying in the Anki interface, so
 		#      disable these for now.
 		tags = note.get("tags", [])
-		#if not real_heisig:
-		#	tags.append("primitive")
-		#if LESSON_BOUNDARIES:
-		#	tags.append("lesson-%s" % (current_lesson,))
 		note["tags"] = " ".join(tags)
 
 		# Output the note.
@@ -165,8 +153,8 @@ def main(args):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Generate primitive lookup table.")
+	parser.add_argument("--filter", help="Only include kanji with this index (will still include all primitives).")
 	parser.add_argument("--kanji", "-k", required=True, help="Kanji index CSV.")
 	parser.add_argument("--primitives", "-p", required=True, help="Primitive index CSV.")
-	parser.add_argument("--lessons", "-l", default=None, help="Lesson frames CSV.")
 	parser.add_argument("--output", "-o", default=None, help="Output fileame (default: stdout).")
 	main(parser.parse_args())

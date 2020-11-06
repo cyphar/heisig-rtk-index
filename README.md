@@ -232,6 +232,11 @@ are corrected in any future 7th edition he chooses to release):
    don't appear to exist in other Kanji). However it's still an innacuracy in
    the book's teaching.
 
+ * The "birdhouse" primitive (⿱爫冖) is rendered as though it was
+   "schoolhouse" (𰃮 =⿱𭕄冖).
+
+ * The primitive 屯 ("earthworm") is also present as "barracks" in frame 2189.
+
 ### What about RtK-3? ###
 
 At some point I will take a look at creating an index for the third volume of

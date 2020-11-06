@@ -25,7 +25,7 @@ import collections
 from xml.etree import ElementTree
 
 LAST_KANJI = 2200 # Only this many kanji in RtK 1.
-FIELDS = ["heisig_number", "character", "keyword", "mnemonic", "stroke_count", "is_primitive", "tags"]
+OUT_FIELDS = ["heisig_number", "unicode", "image", "keyword", "mnemonic", "stroke_count", "is_primitive", "tags"]
 
 KANJIDIC2_URL = "http://www.edrdg.org/kanjidic/kanjidic2.xml.gz"
 
@@ -77,16 +77,18 @@ def generate_notes(args):
 	# Pre-calculate which frame boundaries have to have primitives inserted.
 	PRIMITIVES = collections.defaultdict(list) # next_frame -> [primitive]
 	with open(args.primitives, "r", newline="") as f:
-		# FORMAT: path,keyword,stroke_count,fake_heisig,next_frame,old_path,page
+		# FORMAT: path,unicode,keyword,stroke_count,fake_heisig,next_frame,old_path,page
 		rdr = csv.DictReader(f)
 		for row in rdr:
 			next_frame = int(row["next_frame"])
+
 			PRIMITIVES[next_frame].append({
 				"heisig_number": row["fake_heisig"],
 				"keyword": row["keyword"],
-				"character": '<img class="rtk-primitive" src="%s"/>' % (row["path"],),
+				"unicode": row["unicode"],
+				"image": '<img class="rtk-primitive" src="%s"/>' % (row["path"],),
 				"stroke_count": int(row["stroke_count"]),
-				"is_primitive": "x",
+				"is_primitive": "y",
 			})
 
 	wanted_kanji = set(range(1, LAST_KANJI + 1))
@@ -122,7 +124,8 @@ def generate_notes(args):
 			note = {
 				"heisig_number": heisig_number,
 				"keyword": row["keyword_6th_ed"],
-				"character": row["kanji"],
+				"unicode": row["kanji"],
+				"image": "",
 				"stroke_count": stroke_count(row["kanji"]),
 				"is_primitive": "",
 			}
@@ -138,8 +141,9 @@ def main(args):
 	else:
 		outf = sys.stdout
 
-	wtr = csv.DictWriter(outf, fieldnames=FIELDS, lineterminator="\n")
-	wtr.writeheader()
+	wtr = csv.DictWriter(outf, fieldnames=OUT_FIELDS, lineterminator="\n")
+	# TODO: Make this optional.
+	#wtr.writeheader()
 	for real_heisig, note in generate_notes(args):
 		# Add tags to the note.
 		# XXX: Tags are actually fairly annoying in the Anki interface, so
@@ -152,7 +156,7 @@ def main(args):
 		outf.flush()
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Generate primitive lookup table.")
+	parser = argparse.ArgumentParser(description="Generate complete RtK kanji index.")
 	parser.add_argument("--filter", help="Only include kanji with this index (will still include all primitives).")
 	parser.add_argument("--kanji", "-k", required=True, help="Kanji index CSV.")
 	parser.add_argument("--primitives", "-p", required=True, help="Primitive index CSV.")

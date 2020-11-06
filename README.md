@@ -42,20 +42,41 @@ In order to correctly import the cards, you should create a new card type that
 has some reasonable layout for the following fields:
 
  1. `Heisig Number`.
- 2. `Character`.
- 3. `Keyword`.
- 4. `Mnemonic` (which you fill in yourself).
- 5. `Stroke Count`.
- 6. `Primitive`.
+ 2. `Character (Unicode)`.
+ 3. `Character (Image)`.
+ 4. `Keyword`.
+ 5. `Mnemonic` (which you fill in yourself).
+ 6. `Stroke Count`.
+ 7. `Primitive?`.
 
 Then take the [latest zip of the index][releases], extract it and import the
-`INDEX.csv` file into Anki (make sure that your card fields are in the same
-order as the above list as that is the order of the CSV columns). Then (in
+`INDEX_VOL1.csv` file into Anki (make sure that your card fields are in the
+same order as the above list as that is the order of the CSV columns). Then (in
 order for the primitives to show up properly), copy all of the `.svg` files in
 the `collections.media` folder of the zip file into your Anki
 `collections.media` folder.
 
-These are the designs I personally used:
+If you wish to make use of a more minimal set of Kanji to learn (~1000), you
+can instead import the `INDEX_MINIMAL.csv` file instead of `INDEX_VOL1.csv`.
+This smaller set of Kanji was taken from the [Refold RRTK list][refold-rrtk]
+and is intended to only teach the ~1000 most used Kanji in RTK order (in order
+to allow you to move onto learning Kanji in-context from actual vocabulary more
+quickly).
+
+You can use this deck in both "Recognition RTK" (Lazy Kanji) or "Production
+RTK" (Classic RTK) mode, all that is required is that you change the card
+templates to match. Here are the card templates I used for each.
+
+[releases]: https://github.com/cyphar/heisig-rtk-index/releases
+[refold-rrtk]: https://massimmersionapproach.com/table-of-contents/stage-1/practice/recognition-rtk
+
+#### Recognition RTK (Lazy Kanji) ###
+
+This is the technique recommended by [Refold][refold-rrtk] for starting out
+learning Kanji and is based on [the Lazy Kanji technique][ajatt-lazy-kanji].
+
+[refold-rrtk]: https://massimmersionapproach.com/table-of-contents/stage-1/practice/recognition-rtk
+[ajatt-lazy-kanji]: http://www.alljapaneseallthetime.com/blog/lazy-kanji-cards-a-new-srs-card-format/
 
 <details>
 <summary>Card Front</summary>
@@ -63,15 +84,35 @@ These are the designs I personally used:
 ```
 <div class="tags">
 Minimal RtK |
-{{^Primitive}}
+{{^Primitive?}}
   <strong>#{{Heisig Number}}</strong>
-{{/Primitive}}
-{{#Primitive}}
-  <em>Primitive</em>
-{{/Primitive}}
+{{/Primitive?}}
+{{#Primitive?}}
+  <em>Primitive {{Heisig Number}}</em>
+{{/Primitive?}}
+{{#Stroke Count}}
+| <strong>{{Stroke Count}}</strong> Strokes
+{{/Stroke Count}}
 </div>
 
-<div class="word">{{Keyword}}</div>
+<div class="center">
+{{#Character (Unicode)}}
+<span class="mincho">{{Character (Unicode)}}</span>
+<span class="comic">{{Character (Unicode)}}</span>
+<br>
+<span class="kyokasho">{{Character (Unicode)}}</span>
+<span class="strokeorder">{{Character (Unicode)}}</span>
+{{/Character (Unicode)}}
+
+{{^Character (Unicode)}}
+{{#Character (Image)}}
+<span class="mincho">{{Character (Image)}}</span>
+{{/Character (Image)}}
+{{^Character (Image)}}
+<strong><span style="color: red">CHARACTER MISSING</span></strong>
+{{/Character (Image)}}
+{{/Character (Unicode)}}
+</div>
 ```
 
 </details>
@@ -83,20 +124,6 @@ Minimal RtK |
 {{FrontSide}}
 
 <hr id=answer>
-
-<div class="tags">
-{{#Stroke Count}}
-<strong>{{Stroke Count}}</strong> Strokes
-{{/Stroke Count}}
-</div>
-
-<div class="center">
-<span class="mincho">{{Character}}</span>
-<span class="comic">{{Character}}</span>
-<br>
-<span class="kyokasho">{{Character}}</span>
-<span class="strokeorder">{{Character}}</span>
-</div>
 
 <div class="word">{{Keyword}}</div>
 
@@ -128,6 +155,10 @@ Minimal RtK |
 img {
 	min-width: 200px;
 	min-height: 200px;
+}
+
+.nightMode img.rtk-primitive {
+	filter: invert(1);
 }
 
 @font-face { font-family: yumin; src: url('_yumin.ttf'); }
@@ -189,15 +220,174 @@ img {
 
 </details>
 
-If you use Anki in night mode, you should add the following CSS to the styling
-of your card (it will make the primitives show up in a white "font" when in
-night mode):
+#### Production RTK (Classic RTK) ###
+
+This is the methodology that Heisig recommends, and is the one that advanced
+learners of Japanese using the Refold technique are suggested to use (though
+note that in that case the keywords attached will be useless to you because you
+already know words using these Kanji!).
+
+<details>
+<summary>Card Front</summary>
+
+```
+<div class="tags">
+Minimal RtK |
+{{^Primitive?}}
+  <strong>#{{Heisig Number}}</strong>
+{{/Primitive?}}
+{{#Primitive?}}
+  <em>Primitive {{Heisig Number}}</em>
+{{/Primitive?}}
+</div>
+
+<div class="word">{{Keyword}}</div>
+```
+
+</details>
+
+<details>
+<summary>Card Back</summary>
+
+```
+{{FrontSide}}
+
+<hr id=answer>
+
+<div class="tags">
+{{#Stroke Count}}
+<strong>{{Stroke Count}}</strong> Strokes
+{{/Stroke Count}}
+</div>
+
+<div class="center">
+{{#Character (Unicode)}}
+<span class="mincho">{{Character (Unicode)}}</span>
+<span class="comic">{{Character (Unicode)}}</span>
+<br>
+<span class="kyokasho">{{Character (Unicode)}}</span>
+<span class="strokeorder">{{Character (Unicode)}}</span>
+{{/Character (Unicode)}}
+
+{{^Character (Unicode)}}
+{{#Character (Image)}}
+<span class="mincho">{{Character (Image)}}</span>
+{{/Character (Image)}}
+{{^Character (Image)}}
+<strong><span style="color: red">CHARACTER MISSING</span></strong>
+{{/Character (Image)}}
+{{/Character (Unicode)}}
+</div>
+
+<div class="word">{{Keyword}}</div>
+
+{{#Mnemonic}}
+<div class="mnemonic">{{Mnemonic}}</div>
+{{/Mnemonic}}
+{{^Mnemonic}}
+<strong><span style="color: red">You still need to fill the mnemonic field of this card!</span></strong>
+{{/Mnemonic}}
+```
+
+</details>
+
+<details>
+<summary>Card Styling</summary>
+
+```
+.card {
+	font-family: yumin;
+	font-size: 20px;
+	background-color: #FFFAF0;
+	color: #2A1B0A;
+	text-align: left !important;
+	max-width: 650px;
+	margin: 20px auto 20px auto;
+	padding: 0 20px 0 20px;
+}
+
+img {
+	min-width: 200px;
+	min-height: 200px;
+}
+
+.nightMode img.rtk-primitive {
+	filter: invert(1);
+}
+
+@font-face { font-family: yumin; src: url('_yumin.ttf'); }
+@font-face { font-family: strokeorder; src: url('_strokeorder.ttf'); }
+@font-face { font-family: hgrkk; src: url('_hgrkk.ttf'); }
+@font-face { font-family: yugothb; src: url('_yugothb.ttc'); }
+
+.center {
+	text-align: center !important;
+}
+
+.tags {
+	color:#585858;
+	font-size: 16px;
+}
+
+.mincho {
+	font-family: yumin;
+	font-size: 125px;
+}
+
+.comic {
+	font-family: yugothb;
+	font-size: 125px;
+}
+
+.kyokasho {
+	font-family: hgrkk;
+	font-size: 125px;
+}
+
+.strokeorder {
+	font-family: strokeorder;
+	font-size: 125px;
+}
+
+.word {
+	font-size: 27.5px;
+}
+
+.mnemonic {
+	font-size: 24px;
+}
+
+.primitive {
+	color: #74291c;
+}
+
+.hyper {
+	color:#585858;
+	text-decoration: none;
+}
+
+.hyper:hover {
+	color:#000000;
+	text-decoration: underline;
+}
+```
+
+</details>
+
+#### Custom Cards ####
+
+Note that if you're creating your own custom templates you should add the
+following CSS to the styling of your card (it will make the primitives show up
+in a white "font" when in Anki's night mode):
 
 ```
 .nightMode img.rtk-primitive {
 	filter: invert(1);
 }
 ```
+
+Also note that some (but not all) primitives have a Unicode representation as
+well as the image representation.
 
 ### Mistakes ###
 

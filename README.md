@@ -1,12 +1,12 @@
 ## Complete RtK-1 Index ##
 
-This repository contains a complete index of both the *frames* (Kanji) and
+This repository contains a complete index of both the *frames* (kanji) and
 *primitives* listed in James W. Heisig's "Remembering the Kanji 1" (6th
 Edition). Most other indices had at least one of the following flaws:
 
  * Primitives were not included at all (because they cannot be represented in
    Unicode), but this makes the index useless because the whole idea behind
-   Heisig is to use primitives to build up Kanji.
+   Heisig is to use primitives to build up kanji.
 
  * The quality of the primitive images used were ... questionable. Usually
    these were created by taking screenshots which results in the images being
@@ -15,12 +15,16 @@ Edition). Most other indices had at least one of the following flaws:
 
  * They contained some form of inaccuracy (usually incorrect keywords).
 
-To correct all of the above, I used [an existing index of the Kanji from RtK
+To correct all of the above, I used [an existing index of the kanji from RtK
 6th Edition][base-index] and then painstakingly extracted an SVG of each
 primitive so that it could be used as a scalable (and invertable) image.
-Finally I wrote some scripts to help collate all of these parts into a
-"primitive" index and then another script to generate a "combined" index of
-both the primitives and Kanji indices.
+I then went through every primitive and attempted to find a corresponding
+unicode version of the character which can be rendered by modern fonts (I found
+some unicode codepoints which do represent primitives but are sadly not
+renderable by any fonts I have -- these are kept in this repo source but aren't
+in the released index zip files). Finally I wrote some scripts to help collate
+all of these parts into a "primitive" index and then another script to generate
+a "combined" index of both the primitives and kanji indices.
 
 All of these scripts and source files are available in this repository, and you
 can get the final output ("INDEX.csv" along with the set of primitive SVGs) as
@@ -56,11 +60,11 @@ order for the primitives to show up properly), copy all of the `.svg` files in
 the `collections.media` folder of the zip file into your Anki
 `collections.media` folder.
 
-If you wish to make use of a more minimal set of Kanji to learn (~1000), you
+If you wish to make use of a more minimal set of kanji to learn (~1000), you
 can instead import the `INDEX_MINIMAL.csv` file instead of `INDEX_VOL1.csv`.
-This smaller set of Kanji was taken from the [Refold RRTK list][refold-rrtk]
-and is intended to only teach the ~1000 most used Kanji in RTK order (in order
-to allow you to move onto learning Kanji in-context from actual vocabulary more
+This smaller set of kanji was taken from the [Refold RRTK list][refold-rrtk]
+and is intended to only teach the ~1000 most used kanji in RTK order (in order
+to allow you to move onto learning kanji in-context from actual vocabulary more
 quickly).
 
 You can use this deck in both "Recognition RTK" (Lazy Kanji) or "Production
@@ -73,7 +77,7 @@ templates to match. Here are the card templates I used for each.
 #### Recognition RTK (Lazy Kanji) ###
 
 This is the technique recommended by [Refold][refold-rrtk] for starting out
-learning Kanji and is based on [the Lazy Kanji technique][ajatt-lazy-kanji].
+learning kanji and is based on [the Lazy Kanji technique][ajatt-lazy-kanji].
 
 [refold-rrtk]: https://massimmersionapproach.com/table-of-contents/stage-1/practice/recognition-rtk
 [ajatt-lazy-kanji]: http://www.alljapaneseallthetime.com/blog/lazy-kanji-cards-a-new-srs-card-format/
@@ -225,7 +229,7 @@ img {
 This is the methodology that Heisig recommends, and is the one that advanced
 learners of Japanese using the Refold technique are suggested to use (though
 note that in that case the keywords attached will be useless to you because you
-already know words using these Kanji!).
+already know words using these kanji!).
 
 <details>
 <summary>Card Front</summary>
@@ -399,7 +403,7 @@ are corrected in any future 7th edition he chooses to release):
    This is wrong on two counts (the character clearly has more than 6 strokes
    -- it has 12, and there is no primitive on page 125 missing from the index).
    In addition, the character itself doesn't appear in RtK at all since it is
-   not a part of the Joyo Kanji.
+   not a part of the Jōyō Kanji.
 
  * Index II is missing an entry for the 6-stroke "wings" primitive on page 204
    (the primitive form of "feather") even though it's listed in Index IV as a
@@ -409,17 +413,21 @@ are corrected in any future 7th edition he chooses to release):
    primitive on page 385 (one of the primitive forms of "row") even though it's
    listed in Index IV as a primitive on that page.
 
- * Index II's entry for "butcher" is incorrect (it should be the 6-stroke
-   primitive "flesh + sabre" but instead it includes the "meeting" primitive
-   making it 9 strokes). Reading the text description of 輸 makes this pretty
-   clear.
+ * Index II's entry for "butcher" is incorrect. Either it should be:
+
+   - Changed to the 6-stroke primitive 刖 ("flesh + sabre") instead of 俞
+	 (which includes the "meeting" primitive, making it 9 strokes). This makes
+	 it consistent with all of the usages of this kanji as a primitive.
+
+   - The primitive should be called "meeting of butchers" to match the current
+	 primitive index, but then the description of 前 will need to be updated.
 
  * Index III incorrectly lists the radical for 輸 as 言 (rather than 車).
 
  * For frame 308 ("metaphor"), Heisig uses the Hanzi character "喻" rather than
    the correct Jōyō Kanji "喩". I believe this is done because you learn all of
    the needed primitives for 喻 by this point (while "喩" has components which
-   don't appear to exist in other Kanji). However it's still an innacuracy in
+   don't appear to exist in other kanji). However it's still an innacuracy in
    the book's teaching.
 
  * The "birdhouse" primitive (⿱爫冖) is rendered as though it was

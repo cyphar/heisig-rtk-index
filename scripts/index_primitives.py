@@ -29,7 +29,7 @@ import collections
 DIR_PATTERN = re.compile(r"^(?P<strokes>\d+)-strokes$")
 FULL_PATTERN = re.compile(r"^(?:.*/)?(?P<strokes>\d+)-strokes/p(?P<page>\d+)(?P<page_part>\.\d+)?-(?P<keyword>[^-]*)(?:-(?P<modifier>.*))?\.svg$")
 
-IN_FIELDS = ["old_path", "parent_frame", "unicode", "next_frame"]
+IN_FIELDS = ["old_path", "parent_frame", "unicode", "next_frame", "real_heisig"]
 OUT_FIELDS = ["path", "unicode", "keyword", "stroke_count", "fake_heisig", "next_frame", "old_path", "page"]
 
 PARENT_FRAME_CHAIN = "^"
@@ -115,6 +115,7 @@ def main(args):
 	# Frame lookup information to figure out the ordering of frames.
 	next_frames = {} # path -> frame
 	prev_primitives = collections.defaultdict(list) # frame -> [path]
+	real_heisigs = {} # path -> frame
 
 	# Unicode equivalents for SVG frames.
 	unicode_primitives = {} # path -> unicode-repr
@@ -131,7 +132,7 @@ def main(args):
 	frames_wtr = None
 	if args.input:
 		with open(args.input, "r", newline="") as f:
-			# FORMAT: old_path,parent_frame,unicode,next_frame
+			# FORMAT: old_path,parent_frame,unicode,next_frame,real_heisig
 			frames_rdr = csv.DictReader(f)
 			for row in frames_rdr:
 				path = row["old_path"]
@@ -145,6 +146,8 @@ def main(args):
 				if row["unicode"]:
 					unicode_primitives[path] = row["unicode"]
 				next_frames[path] = int(row["next_frame"])
+				if row["real_heisig"]:
+					real_heisigs[path] = int(row["real_heisig"])
 
 		f = open(args.input, "w", newline="")
 		frames_wtr = csv.DictWriter(f, fieldnames=IN_FIELDS, lineterminator="\n")
@@ -166,6 +169,7 @@ def main(args):
 		next_frame = int(next_frame)
 		next_frames[path] = next_frame
 		prev_primitives[next_frame].append(path)
+		real_heisig = real_heisigs.get(path, "")
 
 		# What is the parent frame (for filtering and grouping of primitives).
 		if FORCE_PARENT_FRAME or NEED_OPTIONAL:
@@ -231,6 +235,7 @@ def main(args):
 				"parent_frame": parent_frame,
 				"unicode": unicode_primitive,
 				"next_frame": next_frame,
+				"real_heisig": real_heisig,
 			})
 
 	# Generate the CSV.
@@ -244,6 +249,7 @@ def main(args):
 			m = FULL_PATTERN.match(path).groupdict()
 			next_frame = next_frames[path]
 			parent_frame = parent_frames.get(path)
+			real_heisig = real_heisigs.get(path, "")
 
 			# Base keyword name.
 			raw_keyword = m["keyword"]
@@ -267,6 +273,7 @@ def main(args):
 				fake_heisig = "P-%.3d" % (group_idx + 1,)
 				if len(group) > 1:
 					fake_heisig += ".%d" % (group.index(path) + 1,)
+				# TODO: Add real_heisig here somehow...
 
 			# Generate a new path and copy the files.
 			new_path = "mRtK6-%s-%s.svg" % (

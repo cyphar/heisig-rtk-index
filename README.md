@@ -435,6 +435,10 @@ are corrected in any future 7th edition he chooses to release):
 
  * The primitive 屯 ("earthworm") is also present as "barracks" in frame 2189.
 
+ * 尗 is used in at least two kanji (戚 and 叔), maybe it should be turned into
+   a primitive to make it simpler to remember? Though to be fair it doesn't
+   appear to be widely used outside of those two kanji...
+
 ### What about RtK-3? ###
 
 At some point I will take a look at creating an index for the third volume of

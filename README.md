@@ -406,12 +406,12 @@ are corrected in any future 7th edition he chooses to release):
    not a part of the Jōyō Kanji.
 
  * Index II is missing an entry for the 6-stroke "wings" primitive on page 204
-   (the primitive form of "feather") even though it's listed in Index IV as a
-   primitive on that page.
+   (the primitive form of 羽 "feather") even though it's listed in Index IV as
+   a primitive on that page.
 
  * Index II is missing an entry for the 9-stroke "in a row upside down"
-   primitive on page 385 (one of the primitive forms of "row") even though it's
-   listed in Index IV as a primitive on that page.
+   primitive on page 385 (one of the primitive forms of 业 "row") even though
+   it's listed in Index IV as a primitive on that page.
 
  * Index II's entry for "butcher" is incorrect. Either it should be:
 
@@ -431,13 +431,17 @@ are corrected in any future 7th edition he chooses to release):
    it's still an innacuracy in the book's teaching.
 
  * The character 葛 in frame 492 ("kudzu") is described as using the "siesta"
-   primitive but the actual kanji uses the 曷 primitive instead (which isn't
-   given a name in Heisig).
+   primitive (⿱曰匂) but the actual kanji uses the 曷 primitive instead (which
+   isn't given a name in Heisig).
 
  * The "birdhouse" primitive (⿱爫冖) is rendered as though it was
    "schoolhouse" (𰃮 =⿱𭕄冖).
 
  * The primitive 屯 ("earthworm") is also present as "barracks" in frame 2189.
+   This should probably be reordered and the corresponding stories modified.
+   This happens with several other kanji present in RtK 3 (at least 莫, 疋, 也,
+   而, and 巴) but that is more excusable because not they are not in the Jōyō
+   Kanji list.
 
  * 尗 is used in at least two kanji (戚 and 叔), maybe it should be turned into
    a primitive to make it simpler to remember? Though to be fair it doesn't

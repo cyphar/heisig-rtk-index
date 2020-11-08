@@ -427,8 +427,12 @@ are corrected in any future 7th edition he chooses to release):
  * For frame 308 ("metaphor"), Heisig uses the Hanzi character "喻" rather than
    the correct Jōyō Kanji "喩". I believe this is done because you learn all of
    the needed primitives for 喻 by this point (while "喩" has components which
-   don't appear to exist in other kanji). However it's still an innacuracy in
-   the book's teaching.
+   don't appear to exist in other kanji -- namely 兪 instead of 俞). However
+   it's still an innacuracy in the book's teaching.
+
+ * The character 葛 in frame 492 ("kudzu") is described as using the "siesta"
+   primitive but the actual kanji uses the 曷 primitive instead (which isn't
+   given a name in Heisig).
 
  * The "birdhouse" primitive (⿱爫冖) is rendered as though it was
    "schoolhouse" (𰃮 =⿱𭕄冖).

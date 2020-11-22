@@ -437,12 +437,6 @@ are corrected in any future 7th edition he chooses to release):
  * The "birdhouse" primitive (⿱爫冖) is rendered as though it was
    "schoolhouse" (𰃮 =⿱𭕄冖).
 
- * The primitive 屯 ("earthworm") is also present as "barracks" in frame 2189.
-   This should probably be reordered and the corresponding stories modified.
-   This happens with several other kanji present in RtK 3 (at least 莫, 疋, 也,
-   而, and 巴) but that is more excusable because not they are not in the Jōyō
-   Kanji list.
-
  * 尗 is used in at least two kanji (戚 and 叔), maybe it should be turned into
    a primitive to make it simpler to remember? Though to be fair it doesn't
    appear to be widely used outside of those two kanji...

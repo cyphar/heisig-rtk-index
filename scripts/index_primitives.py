@@ -33,7 +33,7 @@ IN_FIELDS = ["old_path", "parent_frame", "unicode", "next_frame", "real_heisig"]
 OUT_FIELDS = ["path", "unicode", "keyword", "stroke_count", "fake_heisig", "next_frame", "old_path", "page"]
 
 PARENT_FRAME_CHAIN = "^"
-PARENT_FRAME_METACHARS = [PARENT_FRAME_CHAIN]
+PARENT_FRAME_METACHARS = {PARENT_FRAME_CHAIN}
 
 def page(path):
 	m = FULL_PATTERN.match(path)
